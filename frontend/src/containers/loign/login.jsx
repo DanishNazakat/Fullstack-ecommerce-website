@@ -14,7 +14,7 @@ const LoginForm = () => {
 
       if (data) {
         // localStorage.setItem("userToken", data.token);
-        alert("Login successful");
+        alert("Login successful!");
         setEmail("");
         setPassword("");
       } else {
