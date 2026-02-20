@@ -1,10 +1,11 @@
 // src/components/LoginForm.jsx
 import React, { useState } from "react";
 import { loginUser } from "../../services/auth/login";
-
+import {useNavigate} from "react-router-dom"
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ const LoginForm = () => {
         alert("Login successful!");
         setEmail("");
         setPassword("");
+        navigate('/')
       } else {
         alert("Login failed. Check your credentials.");
       }

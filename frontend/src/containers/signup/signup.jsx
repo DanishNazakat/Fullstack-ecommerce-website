@@ -1,12 +1,14 @@
 // src/components/SignupForm.jsx
 import React, { useState } from "react";
 import {Signup} from "../../services/auth/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,6 +16,8 @@ const SignupForm = () => {
       const data = await Signup(fname, lname, email, password);
       console.log("Signup response:", data);
       alert("Signup successful!");
+      
+      navigate('/')
     } catch (err) {
       console.error(err);
       alert("Signup failed!");
