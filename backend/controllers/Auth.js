@@ -49,7 +49,7 @@ const login = async (req, res) => {
 
         if (!email || !password) {
             return res.send({
-                massage: "All Fields required",
+                massage: "All Fields requireds ",
                 status: 400
             })
         }
