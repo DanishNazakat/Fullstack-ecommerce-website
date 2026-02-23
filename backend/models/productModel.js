@@ -54,11 +54,12 @@ const productSchema = new mongoose.Schema(
       default: 0,
     },
 
-    // images: [
-    //   {
-    //     type: String, // image URL ya file path
-    //   },
-    // ],
+    images: [
+      {
+        type: String, 
+        required : true
+      },
+    ],
 
     isActive: {
       type: Boolean,
