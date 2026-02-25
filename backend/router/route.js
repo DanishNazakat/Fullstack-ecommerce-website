@@ -13,6 +13,10 @@ router.get('/getProduct', getProduct)
 router.delete("/delete/:id", deleteProduct);
 router.put("/updateProduct/:id", updateProduct);
 const upload = require("../controllers/imageUploader")
+
+router.get("/my", (req, res) => {
+  res.json({ message: "Route working" })
+})
 router.post('/upload', upload.single('image'),async (req, res) => {
     if (!req.file) {
         return res.status(400).send('No file uploaded.');
