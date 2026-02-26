@@ -111,7 +111,7 @@ const LoginForm = () => {
         <Typography variant="body2" textAlign="center" mt={3} color="rgba(255,255,255,0.8)">
           Don't have an account?{" "}
           <Link to="/signup" style={{ color: "#FFD93D", fontWeight: "bold", textDecoration: "none" }}>
-            
+            Sign Up
           </Link>
         </Typography>
       </Paper>
