@@ -5,11 +5,13 @@ const cors = require('cors')
 require("dotenv").config();
 const dbConnection = require('./db/dbconnection')
 const app = express();
-const router = require('./router/route')
+const userRouter = require('./router/userRoute');
+const router = require('./router/route');
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
 app.use('/api' , router)
+app.use('/users', userRouter)
 // app.use(authMiddleware);
 dbConnection();
 app.listen(process.env.PORT, ()=>{

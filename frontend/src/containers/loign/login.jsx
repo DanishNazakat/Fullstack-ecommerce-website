@@ -25,17 +25,17 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const data = await loginUser({ email, password });
-      if (data) {
-        setSnackbar({ open: true, message: "Login successful!", severity: "success" });
+      if (!data) {
+        console.error(err);
+       return setSnackbar({ open: true, message: "Something went wrong.", severity: "error" });
+       
+      }  setSnackbar({ open: true, message: "Login successful!", severity: "success" });
         setEmail("");
         setPassword("");
         setTimeout(() => navigate("/"), 1500);
-      } else {
-        setSnackbar({ open: true, message: "Login failed. Check credentials.", severity: "error" });
-      }
     } catch (err) {
       console.error(err);
-      setSnackbar({ open: true, message: "Something went wrong.", severity: "error" });
+      setSnackbar({ open: true, message: "Invalid Credinatials", severity: "error" });
     }
   };
 
