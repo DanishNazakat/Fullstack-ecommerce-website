@@ -9,7 +9,11 @@ const userRouter = require('./router/userRoute');
 const router = require('./router/route');
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173", // frontend ka exact URL
+  credentials: true               // allow cookies
+}));
+
 app.use('/api' , router)
 app.use('/users', userRouter)
 // app.use(authMiddleware);

@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../services/auth/login";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 // MUI imports
 import {
@@ -18,6 +20,7 @@ import {
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useContext(AuthContext);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
   const navigate = useNavigate();
 
@@ -25,16 +28,20 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const data = await loginUser({ email, password });
+      const userData = await apiRequest("/me", {
+        method: "GET"
+      });
+      setUser(userData);
       if (!data) {
         console.error(err);
-       return setSnackbar({ open: true, message: "Something went wrong.", severity: "error" });
-       
-      }  setSnackbar({ open: true, message: "Login successful!", severity: "success" });
-        setEmail("");
-        setPassword("");
-        setTimeout(() => navigate("/"), 1500);
+        return setSnackbar({ open: true, message: "Something went wrong.", severity: "error" });
+
+      } setSnackbar({ open: true, message: "Login successful!", severity: "success" });
+      setEmail("");
+      setPassword("");
+      setTimeout(() => navigate("/"), 1500);
     } catch (err) {
-      console.error(err);
+      console.log(err);
       setSnackbar({ open: true, message: "Invalid Credinatials", severity: "error" });
     }
   };

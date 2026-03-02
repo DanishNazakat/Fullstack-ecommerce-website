@@ -16,6 +16,7 @@ export async function loginUser({ email, password }) {
       headers: {
         "Content-Type": "application/json",
       },
+        credentials: "include",   // 🔥 VERY IMPORTANT
       body: JSON.stringify({email, password}),
     });
     console.log(data, "line 21");

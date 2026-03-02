@@ -1,17 +1,22 @@
 const express = require("express");
 
 const router = express.Router();
-const authMiddleware = require("../middleware/verifyToken")
-const {signup ,login} = require('../controllers/Auth');
+const authMiddleware = require("../middleware/verifyToken");
+const authorizeRoles = require('../middleware/roleMiddleware')
+const createAdmin = require("../controllers/createAdmin")
+const {signup ,login , me} = require('../controllers/Auth');
 const {addProduct , getProduct , deleteProduct ,updateProduct} = require("../controllers/productController");
+
 // const cloudinary = require("../config/cloudinary")
 
 router.post('/signup', signup);
+router.post('/createAdmin', createAdmin);
 router.post('/login', login);
-router.post('/addProduct', authMiddleware ,addProduct)
-router.get('/getProduct', getProduct)
-router.delete("/delete/:id", deleteProduct);
-router.put("/updateProduct/:id", updateProduct);
+router.get('/me',authMiddleware, me);
+router.post('/addProduct', authMiddleware,authorizeRoles("admin") ,addProduct)
+router.get('/getProduct',authMiddleware,authorizeRoles("admin","manager","user"), getProduct)
+router.delete("/delete/:id",authMiddleware,authorizeRoles("admin","manager"), deleteProduct);
+router.put("/updateProduct/:id",authMiddleware,authorizeRoles("admin","manger"), updateProduct);
 const upload = require("../controllers/imageUploader")
 
 // router.get("/my", (req, res) => {

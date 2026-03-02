@@ -12,6 +12,7 @@ export async function getProduct() {
   try {
     const data = await apiRequest("/getProduct", {
       method: "GET",
+        credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

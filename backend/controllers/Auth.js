@@ -67,7 +67,7 @@ const login = async (req, res) => {
             })
         }
         const token = jwt.sign(
-            { id: userData._id, email: userData.email },
+            { id: userData._id, email: userData.email , role : userData.role },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         )
@@ -75,6 +75,7 @@ const login = async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: false, // true sirf https me
+            sameSite: "lax",
             maxAge: 24 * 60 * 60 * 1000
         });
         // const token = jwt.sign(
@@ -104,4 +105,13 @@ const login = async (req, res) => {
         })
     }
 }
-module.exports = { signup, login };
+
+
+const me = (req, res) => {
+  res.json({
+    id: req.user.id,
+    email: req.user.email,
+    role: req.user.role
+  });
+}
+module.exports = { signup, login, me };
