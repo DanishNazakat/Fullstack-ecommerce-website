@@ -17,7 +17,7 @@ const SignupForm = () => {
       console.log("Signup response:", data);
       alert("Signup successful!");
       
-      navigate('/')
+      navigate('/login')
     } catch (err) {
       console.error(err);
       alert("Signup failed!");
