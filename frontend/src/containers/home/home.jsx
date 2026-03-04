@@ -42,7 +42,7 @@ function Home() {
     const fetchData = async () => {
       try {
         const response = await getProduct()
-        console.log(response)
+        console.log(response , " line 45")
 
         // 👇 IMPORTANT — sirf array set karo
         setProducts(response.getProduct)
@@ -57,24 +57,18 @@ function Home() {
 
   return (
     <div>
-      <h2>All Products</h2>
+      <h2>All</h2>
 
-      {products && products.length > 0 ? (
-        products.map((item) => (
-          <div key={item._id} style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            margin: "10px",
-            borderRadius: "8px"
-          }}>
-            <h3>{item.name}</h3>
+      
+      {products.map((item)=>{
+        return(
+          <div key={item._id}>
+            <h1>{item.name}</h1>
             <p>{item.description}</p>
-            <p><strong>Price:</strong> {item.price}</p>
+            <p>{item.price}</p>
           </div>
-        ))
-      ) : (
-        <p>No Products Found</p>
-      )}
+        );
+      })}
 
     </div>
   )
