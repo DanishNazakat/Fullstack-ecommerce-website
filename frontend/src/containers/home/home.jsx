@@ -57,7 +57,7 @@ function Home() {
 
   return (
     <div>
-      <h2>All</h2>
+      <h2>All Produc</h2>
 
       
       {products.map((item)=>{
