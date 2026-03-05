@@ -1,9 +1,11 @@
 import {createBrowserRouter} from "react-router-dom"
 import MainLayout from "./layout/MainLauout"
-import LoginForm from "./containers/loign/login"
-import SignupForm from "./containers/signup/signup"
-import Home from "./containers/home/home"
-import AdminDashboard from "./containers/adminDashboard/adminDashboard"
+import AdminDashboard from "./Pages/admin/adminDashboard"
+import Home from "./Pages/user/home/home"
+import LoginForm from "./Pages/loign/login"
+import SignupForm from "./Pages/signup/signup"
+import AddProduct from "./Pages/admin/addProduct/addProduct"
+import UpdateProduct from "./Pages/admin/updateProduct/updateProduct"
 
 
 const router = createBrowserRouter([
@@ -13,9 +15,12 @@ const router = createBrowserRouter([
         errorElement:<>404 page not found</>,
         children:[
             {index:true, element: <Home />},
-            {path:"login", element: <LoginForm />},
+            {path:"login", element: <LoginForm/>},
             {path:"signup", element:<SignupForm />},
-            {path:"AdminDashboard", element:<AdminDashboard />}
+            {path:"AdminDashboard", element:<AdminDashboard />},
+            
+            {path:"UpdateProduct/:id", element:<UpdateProduct />},
+            {path:"AddProduct", element:<AddProduct />}
         ],
     },
 ])

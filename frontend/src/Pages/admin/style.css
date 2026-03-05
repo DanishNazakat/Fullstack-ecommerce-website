@@ -1,0 +1,36 @@
+.products{
+    border: 1px solid white;
+    padding: 20px;
+    margin: 20px;
+    width: 400px;
+}
+.editButton{
+    border: 2px solid rgb(70, 70, 255);
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(101, 101, 250);
+    margin: 10px;
+}
+.deleteButton{
+    border: 2px solid rgb(255, 70, 70);
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(250, 71, 71);
+}
+.addProduct{
+    border: 2px solid rgb(255, 70, 70);
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(250, 71, 71);
+    background-color: white;
+}
+.editButton:hover{
+    color: rgb(78, 78, 255);
+    box-shadow: 1px 1px 10px rgb(101, 101, 250);
+
+}
+.deleteButton:hover{
+    box-shadow: 1px 1px 10px red;
+    color: rgb(255, 42, 42);
+
+}

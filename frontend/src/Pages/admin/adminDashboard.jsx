@@ -32,9 +32,10 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { getProduct } from "../../services/auth/getProduct"
-
-function Home() {
+import { getProduct } from "../../services/products/getProduct"
+import { Link } from 'react-router-dom'
+import "./style.css"
+function AdminDashboard() {
 
   const [products, setProducts] = useState([])
 
@@ -57,15 +58,20 @@ function Home() {
 
   return (
     <div>
+      <Link to={"/AddProduct"} className='addProduct'>add Product</Link>
       <h2>All Produc</h2>
 
       
       {products.map((item)=>{
         return(
-          <div key={item._id}>
-            <h1>{item.name}</h1>
+          <div key={item._id} className='products'>
+            <h3>{item.name}</h3>
             <p>{item.description}</p>
             <p>{item.price}</p>
+            <p>{item.category}</p>
+            <p>{item.stock}</p>
+            <Link to={`/UpdateProduct/`+item._id} className='editButton'>Edit </Link>
+            <Link to={`UpdateProduct/`+item._id} className='deleteButton'>delete </Link>
           </div>
         );
       })}
@@ -74,4 +80,4 @@ function Home() {
   )
 }
 
-export default Home
+export default AdminDashboard

@@ -1,19 +1,28 @@
 const Product = require('../models/productModel');
 
 
-const addProduct = async (req,res)=>{
-    try{
+const addProduct = async (req, res) => {
+    try {
+        const { name, description, price,category , stock } = req.body;
+        if (!name || !description || !price || !category || !stock ) {
+            return res.send({
+                message: "all Fields required",
+                status: 400
+            })
+        }
+        const product = {
+            name, description, price , category , stock
+        }
+        const newProduct = await new Product(product).save();
 
-        const {...ProductDetails}= req.body;
-        const newProduct = await Product.create({
-            ...ProductDetails
-        })
-        res.send({ ...ProductDetails})
-
-    }catch(err){
+       res.status(200).json({
+        message:"Product created successfully"
+       })
+    } catch (err) {
+        
         res.send({
-            status : 404,
-            message : "fill all the fields",
+            massage: "Sorry server not respnding",
+            status: 500,
             err
         })
     }
