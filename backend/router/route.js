@@ -5,7 +5,7 @@ const authMiddleware = require("../middleware/verifyToken");
 const authorizeRoles = require('../middleware/roleMiddleware')
 const createAdmin = require("../controllers/createAdmin")
 const {signup ,login , me} = require('../controllers/Auth');
-const {addProduct , getProduct , deleteProduct ,updateProduct} = require("../controllers/productController");
+const {addProduct , getProduct , deleteProduct ,updateProduct ,getProductById} = require("../controllers/productController");
 
 // const cloudinary = require("../config/cloudinary")
 
@@ -17,9 +17,10 @@ router.post('/addProduct', authMiddleware,authorizeRoles("admin") ,addProduct)
 router.get('/getProduct',authMiddleware,authorizeRoles("admin","manager","user"), getProduct)
 router.delete("/delete/:id",authMiddleware,authorizeRoles("admin","manager"), deleteProduct);
 router.put("/updateProduct/:id",authMiddleware,authorizeRoles("admin","manger"), updateProduct);
+router.get("/getProductById/:id",authMiddleware,authorizeRoles("admin","manger"), getProductById);
 const upload = require("../controllers/imageUploader")
 
-// router.get("/my", (req, res) => {
+// router.get("/my", (req, res) => {x
 //   res.json({ message: "Route working" })
 // })
 // router.post('/upload', upload.single('image'),async (req, res) => {

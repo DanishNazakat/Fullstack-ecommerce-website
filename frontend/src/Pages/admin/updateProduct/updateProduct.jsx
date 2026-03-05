@@ -1,8 +1,8 @@
 // src/components/SignupForm.jsx
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { updateProduct } from "../../../services/products/updateProduct";
 import { useNavigate , useParams } from "react-router-dom";
-
+import {getProductById} from "../../../services/products/getProductById"
 const  UpdateProduct = () => {
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
@@ -11,7 +11,28 @@ const  UpdateProduct = () => {
   const [stock, setstock] = useState("");
   const {id} = useParams();
   const navigate = useNavigate();
+  // 🔥 product data fetch
+  useEffect(() => {
 
+    const fetchProduct = async () => {
+      try {
+
+        const res = await getProductById(id);
+
+        setname(res.product.name);
+        setdescription(res.product.description);
+        setprice(res.product.price);
+        setcategory(res.product.category);
+        setstock(res.product.stock);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProduct();
+
+  }, [id]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
