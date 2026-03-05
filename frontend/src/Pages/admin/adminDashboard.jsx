@@ -58,7 +58,7 @@ function AdminDashboard() {
 
   return (
     <div>
-      <Link to={"/AddProduct"} className='addProduct'>add Product</Link>
+      <Link to={"/AddProduct"} className='addProduct'>add </Link>
       <h2>All Produc</h2>
 
       
