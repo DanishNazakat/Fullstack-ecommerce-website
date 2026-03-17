@@ -961,6 +961,7 @@
 
 .social-icon:hover {
   background: var(--primary-orange);
+  color: white;
   transform: translateY(-5px) rotate(8deg);
   border-color: var(--primary-orange);
   box-shadow: 0 10px 20px rgba(242, 91, 25, 0.2);
