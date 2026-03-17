@@ -1,50 +1,58 @@
-const Product = require('../models/productModel');
+
+
+
+const Product = require("../models/productModel");
+const cloudinary = require("../config/cloudinary");
+
 
 
 const addProduct = async (req, res) => {
     try {
-        const { name, description, price,category , stock } = req.body;
-        if (!name || !description || !price || !category || !stock ) {
-            return res.send({
-                message: "all Fields required",
-                status: 400
-            })
-        }
-        const product = {
-            name, description, price , category , stock
-        }
-        const newProduct = await new Product(product).save();
+        // Form-data se data req.body mein aata hai
+        const { name, description, price, category, stock } = req.body;
 
-       res.status(200).json({
-        message:"Product created successfully"
-       })
+        if (!name || !price) {
+            return res.status(400).json({ success: false, message: "Name aur Price zaroori hain!" });
+        }
+
+        let imageUrl = "";
+
+        // Agar Multer ne file pakri hai, to Cloudinary par bhejein
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            imageUrl = result.secure_url; // Cloudinary ka link
+        }
+
+        const newProduct = new Product({
+            name,
+            description,
+            price,
+            category,
+            stock,
+            image: imageUrl
+        });
+
+        await newProduct.save();
+        res.status(200).json({ success: true, message: "Product created successfully!" });
+
     } catch (err) {
-        
-        res.send({
-            massage: "Sorry server not respnding",
-            status: 500,
-            err
-        })
+        console.error("Add Product Error:", err);
+        res.status(500).json({ success: false, message: err.message });
     }
-}
+};
 
 
-const getProduct =async(req , res)=>{
-    try{
-        const getProduct = await Product.find();
-        res.send({
-            status:200,
-            getProduct,
-        })
-        console.log(getProduct)
-    }catch(err){
-        res.send({
-            status: 404,
-            message : "failed to fetch product"
-        })
-    }
-}
-
+// Get All Products Controller
+const getProduct = async (req, res) => {
+  try {
+    const products = await Product.find().sort({ createdAt: -1 });
+    // Console mein check karein ke 'image' field mein Cloudinary URL hai ya nahi
+    console.log("Products from DB:", products); 
+    res.status(200).json({ success: true, products });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 // const Product = require("../models/productModel");
 

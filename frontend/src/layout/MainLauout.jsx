@@ -18,6 +18,10 @@ const MainLayout = () => {
           <NavLink to="/signup" className="nav-link">
             Signup
           </NavLink>
+          
+          <NavLink to="/Profile" className="nav-link">
+            profile
+          </NavLink>
         </div>
       </nav>
 

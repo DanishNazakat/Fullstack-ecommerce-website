@@ -29,12 +29,12 @@ const signup = async (req, res) => {
 
         res.send({
             status: 200,
-            messege: "successfully signup"
+            message: "successfully signup"
         })
     } catch (err) {
         ;
         res.send({
-            massage: "Sorry server not respnding",
+            message: "Sorry server not respnding",
             status: 500,
             err
         })
@@ -49,7 +49,7 @@ const login = async (req, res) => {
 
         if (!email || !password) {
             return res.send({
-                massage: "All Fields requireds ",
+                message: "All Fields requireds ",
                 status: 400
             })
         }
@@ -101,8 +101,8 @@ const login = async (req, res) => {
 
     } catch (err) {
         res.send({
-            massage: "server internal Error",
-            error: err.message
+            message: "server internal Error",
+            // error: err.message
         })
     }
 }

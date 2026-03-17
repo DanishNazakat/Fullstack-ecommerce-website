@@ -1,0 +1,64 @@
+.admin-orders-container {
+    padding: 30px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.order-table th {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.order-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+
+.order-row:hover {
+    background-color: #f1f1f1;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-Pending { background: #ffeaa7; color: #d35400; }
+.status-Shipped { background: #81ecec; color: #008080; }
+.status-Delivered { background: #55efc4; color: #006266; }
+
+.items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.items-list li {
+    margin-bottom: 5px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.total-price {
+    font-weight: bold;
+    color: #27ae60;
+    font-size: 16px;
+}
