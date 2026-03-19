@@ -57,10 +57,10 @@
 
 // export default SignupForm;
 
-
 import React, { useState } from "react";
 import { Signup } from "../../services/auth/auth";
 import { useNavigate, Link } from "react-router-dom";
+import toast from "react-hot-toast"; // 1. Toast import kiya
 import "./SignupForm.css"; 
 import shoppingImg from "../../assets/unnamed.png";
 
@@ -74,17 +74,34 @@ const SignupForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Passwords match check
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!"); // 2. Alert ki jagah toast
       return;
     }
+
+    // Loading start (Optional: Aap button ko disable karne ke liye use kar sakte hain)
+    const loadingToast = toast.loading("Creating your account...");
+
     try {
-      await Signup(fname, lname, email, password);
-      alert("Signup successful!");
+      const response = await Signup(fname, lname, email, password);
+      
+      // Loading toast ko success mein badlein
+      toast.success("Signup successful! Welcome to ShopModern.", {
+        id: loadingToast,
+      });
+
       navigate('/login');
     } catch (err) {
       console.error(err);
-      alert("Signup failed!");
+      
+      // Backend se agar koi specific error message aa raha ho to wo dikhayein
+      const errorMsg = err.response?.data?.message || "Signup failed! Please try again.";
+      
+      toast.error(errorMsg, {
+        id: loadingToast,
+      });
     }
   };
 
@@ -157,7 +174,6 @@ const SignupForm = () => {
 
             <button type="submit" className="create-btn">Create Account</button>
           </form>
-
 
           <p className="footer-text">
             Already have an account? <Link to="/login">Log In</Link>

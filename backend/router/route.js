@@ -4,7 +4,7 @@ const router = express.Router();
 const authMiddleware = require("../middleware/verifyToken");
 const authorizeRoles = require('../middleware/roleMiddleware')
 const createAdmin = require("../controllers/createAdmin")
-const {signup ,login , me} = require('../controllers/Auth');
+const {signup ,login , getAllUsers , deleteUser, updateUser} = require('../controllers/Auth');
 const {createOrder , updateOrder ,getUserOrders}= require("../controllers/orderController");
 const {addProduct , getProduct , deleteProduct ,updateProduct ,getProductById  } = require("../controllers/productController");
 const upload = require("../controllers/imageUploader");
@@ -13,7 +13,9 @@ const upload = require("../controllers/imageUploader");
 router.post('/signup', signup);
 router.post('/createAdmin', createAdmin);
 router.post('/login', login);
-router.get('/me',authMiddleware, me);
+router.get("/allUser", authMiddleware, authorizeRoles("admin"), getAllUsers);
+router.put("/updateUser/:id", authMiddleware, authorizeRoles("admin"),updateUser);
+router.delete("/deleteUser/:id", authMiddleware, authorizeRoles("admin"),deleteUser);
 // router.post('/addProduct', authMiddleware,authorizeRoles("admin") ,addProduct)
 router.get('/getProduct',authMiddleware,authorizeRoles("admin","manager","user"), getProduct)
 router.delete("/delete/:id",authMiddleware,authorizeRoles("admin","manager"), deleteProduct);

@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 function Home() {
-  // Products ko hamesha empty array se initialize karein
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState('All');
-  const [loading, setLoading] = useState(true); // Loading state zaroori hai
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -32,36 +31,33 @@ function Home() {
   const profile = () => {
     navigate("/profile");
   };
+  const orderHistory = () => {
+    navigate("/orderHistory");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getProduct();
-        // Backend se data 'getProduct' ya 'products' kis key mein aa raha hai?
-        // Humne yahan safely handle kiya hai:
         const data = response.getProduct || response.products || response;
         setProducts(Array.isArray(data) ? data : []);
       } catch (err) {
         console.log(`Products not Found ${err.message}`);
-        setProducts([]); // Error par empty array rakhein
+        setProducts([]);
       } finally {
-        setLoading(false); // Data load hone ke baad loading band
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  // Filter logic ko safe banane ke liye optional chaining use karein
   const filteredProducts = (products || []).filter((item) => {
     if (!item) return false;
-
     const matchesCategory = activeCategory === 'All' ||
       item.category?.toLowerCase() === activeCategory.toLowerCase();
-
     const matchesSearch =
       item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.description?.toLowerCase().includes(searchTerm.toLowerCase());
-
     return matchesCategory && matchesSearch;
   });
 
@@ -89,7 +85,7 @@ function Home() {
           </div>
 
           <div className="nav-actions">
-            <button className="nav-icon-btn">
+            <button className="nav-icon-btn" onClick={orderHistory}>
               <span className="material-symbols-outlined">shopping_cart</span>
             </button>
             <button className="nav-icon-btn" onClick={profile}>
@@ -100,7 +96,7 @@ function Home() {
       </nav>
 
       <div className="container main-content">
-        {/* --- Hero Banner Section --- */}
+        {/* --- Hero Banner --- */}
         <section className="hero-banner">
           <div className="hero-overlay"></div>
           <img
@@ -116,7 +112,7 @@ function Home() {
           </div>
         </section>
 
-        {/* --- Shop by Category Section --- */}
+        {/* --- Categories --- */}
         <section className="category-section">
           <div className="section-header">
             <h2>Shop by Category</h2>
@@ -141,32 +137,50 @@ function Home() {
 
         {/* --- Product Grid --- */}
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '50px' }}>Loading amazing products...</div>
+          <div className="loading-state">
+            <div className="spinner"></div>
+            <p>Loading amazing products...</p>
+          </div>
         ) : (
           <div className="product-grid">
             {filteredProducts.length > 0 ? (
-              filteredProducts.map((item) => (
-                <div key={item._id} className="product-card">
-                  <div className="card-img-box">
-                    {/* Cloudinary URL handling */}
-                    <img src={item.image || "https://via.placeholder.com/300"} alt={item.name} />
-                    <span className="img-category-tag">{item.category}</span>
-                  </div>
-                  <div className="card-info">
-                    <span className="item-cat-label">{item.category}</span>
-                    <h3 className="item-name">{item.name}</h3>
-                    <div className="card-footer-row">
-                      <span className="item-price">${item.price}</span>
-                      <div className="action-btns">
-                        <button className="add-btn" onClick={() => handleDirectCheckout(item)}>
-                          <span className="material-symbols-outlined">add_shopping_cart</span>
-                          <span>Buy Now</span>
-                        </button>
+              filteredProducts.map((item) => {
+                // Handling multiple image sources safely
+                const displayImg = item.images && item.images.length > 0 
+                  ? item.images[0].url 
+                  : (item.image || "https://placehold.co/400x400?text=No+Image");
+
+                return (
+                  <div key={item._id} className="product-card">
+                    <div className="card-img-box">
+                      <img src={displayImg} alt={item.name} />
+                      {/* <span className="img-category-tag">{item.category}</span> */}
+                    </div>
+                    <div className="card-info">
+                      <span className="item-cat-label">{item.category}</span>
+                      <h3 className="item-name">{item.name}</h3>
+                      
+                      {/* Description logic added */}
+                      <p className="item-description">
+                        {item.description || "Experience premium quality with this top-rated item."}
+                      </p>
+
+                      <div className="card-footer-row">
+                        <div className="price-wrapper">
+                           <span className="currency">$</span>
+                           <span className="item-price-val">{item.price}</span>
+                        </div>
+                        <div className="action-btns">
+                          <button className="add-btn" onClick={() => handleDirectCheckout(item)}>
+                            <span className="material-symbols-outlined">bolt</span>
+                            <span>Buy Now</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))
+                );
+              })
             ) : (
               <div className="no-results">
                 <span className="material-symbols-outlined">inventory_2</span>
@@ -177,8 +191,8 @@ function Home() {
         )}
       </div>
 
-      {/* --- Footer --- */}
-      <footer class="main-footer">
+      {/* --- Footer (Cleaned & Corrected) --- */}
+       <footer class="main-footer">
         <div class="container footer-grid">
           <div class="footer-brand">
             <div class="logo-section">
@@ -238,7 +252,6 @@ function Home() {
           </div>
         </div>
       </footer>
-
     </div>
   );
 }

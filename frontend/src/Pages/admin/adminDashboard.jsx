@@ -113,7 +113,7 @@ const styles = {
   },
   imageWrapper: {
     width: '100%',
-    height: '180px',
+    height: '250px',
     backgroundColor: '#f8f9fa',
     display: 'flex',
     justifyContent: 'center',

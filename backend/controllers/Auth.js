@@ -108,11 +108,50 @@ const login = async (req, res) => {
 }
 
 
-const me = (req, res) => {
-  res.json({
-    id: req.user.id,
-    email: req.user.email,
-    role: req.user.role
-  });
-}
-module.exports = { signup, login, me };
+// 1. Get All Users (Admin ke liye)
+const getAllUsers = async (req, res) => {
+    try {
+        // Hum password nahi bhejenge security ke liye
+        const users = await User.find().select("-password");
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: "Users lane mein dikkat hui", error: error.message });
+    }
+};
+
+// 2. Update User (Role ya Details badalne ke liye)
+const updateUser = async (req, res) => {
+    try {
+        const { fname, lname, email, role } = req.body;
+        
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            { fname, lname, email, role },
+            { new: true, runValidators: true }
+        ).select("-password");
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User nahi mila" });
+        }
+
+        res.status(200).json({ message: "User update ho gaya", updatedUser });
+    } catch (error) {
+        res.status(500).json({ message: "Update fail ho gaya", error: error.message });
+    }
+};
+
+// 3. Delete User
+const deleteUser = async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id);
+        
+        if (!user) {
+            return res.status(404).json({ message: "User pehle hi delete ho chuka hai" });
+        }
+
+        res.status(200).json({ message: "User successfully delete ho gaya" });
+    } catch (error) {
+        res.status(500).json({ message: "Delete karne mein error", error: error.message });
+    }
+};
+module.exports = { signup, login, getAllUsers , updateUser, deleteUser };

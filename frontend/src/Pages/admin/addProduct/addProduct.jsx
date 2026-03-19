@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { addProduct } from '../../../services/products/addProduct';
 import { useNavigate } from 'react-router-dom';
+import './AddProduct.css'; // Alag CSS file use karein
 
 function AddProduct() {
   const [name, setName] = useState("");
@@ -8,20 +9,19 @@ function AddProduct() {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState("");
-  const [file, setFile] = useState(null); // Image file state
+  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]); // Pehli file select karna
+    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    // FormData banana (Postman ki tarah)
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
@@ -30,13 +30,13 @@ function AddProduct() {
     formData.append("stock", stock);
     
     if (file) {
-      formData.append("image", file); // Backend 'upload.single("image")' se match hona chahiye
+      formData.append("image", file);
     }
 
     try {
       const response = await addProduct(formData);
       if (response.success) {
-        alert("Product with image added successfully!");
+        alert("Product added successfully!");
         navigate("/AdminDashboard");
       }
     } catch (err) {
@@ -47,41 +47,98 @@ function AddProduct() {
   };
 
   return (
-    <div style={{ padding: '40px', maxWidth: '600px', margin: 'auto' }}>
-      <h2>Add New Product (with Image)</h2>
-      <form onSubmit={handleSubmit}>
-        <div style={styles.formGroup}>
-          <label>Product Name:</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required style={styles.input} />
+    <div className="ap-wrapper">
+      <div className="ap-container">
+        <div className="ap-header">
+          <button className="ap-back-btn" onClick={() => navigate(-1)}>
+            <span className="material-symbols-outlined">arrow_back</span>
+          </button>
+          <h2>Add New Product</h2>
         </div>
 
-        <div style={styles.formGroup}>
-          <label>Description:</label>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} required style={styles.input} />
-        </div>
+        <form onSubmit={handleSubmit} className="ap-form">
+          {/* Product Name */}
+          <div className="ap-group">
+            <label>Product Name</label>
+            <input 
+              type="text" 
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              placeholder="e.g. Premium Wireless Headphones"
+              required 
+            />
+          </div>
 
-        <div style={styles.formGroup}>
-          <label>Price:</label>
-          <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required style={styles.input} />
-        </div>
+          {/* Category & Price Row */}
+          <div className="ap-row">
+            <div className="ap-group">
+              <label>Category</label>
+              <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+                <option value="">Select Category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Home">Home</option>
+                <option value="Beauty">Beauty</option>
+              </select>
+            </div>
+            <div className="ap-group">
+              <label>Price ($)</label>
+              <input 
+                type="number" 
+                value={price} 
+                onChange={(e) => setPrice(e.target.value)} 
+                placeholder="0.00"
+                required 
+              />
+            </div>
+          </div>
 
-        <div style={styles.formGroup}>
-          <label>Product Image:</label>
-          <input type="file" accept="image/*" onChange={handleFileChange} required style={styles.input} />
-        </div>
+          {/* Stock & Image Row */}
+          <div className="ap-row">
+            <div className="ap-group">
+              <label>Stock Quantity</label>
+              <input 
+                type="number" 
+                value={stock} 
+                onChange={(e) => setStock(e.target.value)} 
+                placeholder="How many items?"
+                required 
+              />
+            </div>
+            <div className="ap-group">
+              <label>Product Image</label>
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleFileChange} 
+                required 
+              />
+            </div>
+          </div>
 
-        <button type="submit" disabled={loading} style={styles.button}>
-          {loading ? "Uploading to Cloudinary..." : "Add Product"}
-        </button>
-      </form>
+          {/* Description */}
+          <div className="ap-group">
+            <label>Product Description</label>
+            <textarea 
+              value={description} 
+              onChange={(e) => setDescription(e.target.value)} 
+              placeholder="Tell customers about this product..."
+              rows="4"
+              required 
+            />
+          </div>
+
+          <button type="submit" disabled={loading} className="ap-submit-btn">
+            {loading ? (
+              <span className="ap-loader"></span>
+            ) : (
+              "Upload Product"
+            )}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
-
-const styles = {
-  formGroup: { marginBottom: '15px' },
-  input: { width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' },
-  button: { width: '100%', padding: '12px', backgroundColor: '#2c3e50', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer' }
-};
 
 export default AddProduct;
