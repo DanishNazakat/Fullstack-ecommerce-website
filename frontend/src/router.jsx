@@ -11,6 +11,7 @@ import Profile from "./Pages/user/profile/profile";
 import CheckoutPage from "./Pages/CheckoutPage";
 import OrderManagement from "./Pages/admin/OrderManagement/OrderManagement";
 import OrderHistory from "./Pages/user/orderHistory/OrderHistory";
+import UserManagement from "./Pages/admin/UserManagement/UserManagement";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,8 @@ const router = createBrowserRouter([
       { path: "Profile", element: <Profile/> },
       { path: "/checkOut", element: <CheckoutPage/> },
       { path: "/OrderManagement", element: <OrderManagement/> },
-      { path: "/OrderHistory", element: <OrderHistory/> }
+      { path: "/OrderHistory", element: <OrderHistory/> },
+      { path: "/UserManagement", element: <UserManagement/> }
 ]);
 
 export default router;
