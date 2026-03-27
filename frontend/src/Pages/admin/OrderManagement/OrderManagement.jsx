@@ -1,73 +1,121 @@
 import React, { useState, useEffect } from 'react';
 import { getAllOrders } from "../../../services/products/getOrder";
 import { updateOrderStatus } from "../../../services/products/updateOrder";
+import toast, { Toaster } from 'react-hot-toast'; // 🔥 Added
 import './OrderManagement.css'; 
 
 function OrderManagement() {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchOrders = async () => {
     try {
       const response = await getAllOrders();
-      setOrders(Array.isArray(response) ? response : response.orders);
+      const data = Array.isArray(response) ? response : response.orders;
+      setOrders(data || []);
     } catch (err) {
-      console.error("Orders load nahi ho sakay", err);
+      toast.error("Failed to load orders");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => { fetchOrders(); }, []);
 
   const handleStatusChange = async (id, newStatus) => {
-    try {
-      await updateOrderStatus(id, newStatus);
-      alert("Status updated successfully!");
-      fetchOrders(); // List refresh karne ke liye
-    } catch (err) {
-      alert("Update failed: " + err.message);
-    }
+    const updatePromise = updateOrderStatus(id, newStatus);
+
+    toast.promise(updatePromise, {
+      loading: `Updating status to ${newStatus}...`,
+      success: () => {
+        fetchOrders();
+        return <b>Status updated to ${newStatus}!</b>;
+      },
+      error: <b>Update failed. Please try again.</b>,
+    });
   };
 
   return (
-    <div className="admin-orders-container">
-      <h2>📦 Order Management</h2>
-      <table className="order-table">
-        <thead>
-          <tr>
-            <th>Order Details</th>
-            <th>Items</th>
-            <th>Total</th>
-            <th>Current Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders && orders.map((order) => (
-            <tr key={order._id}>
-              <td><small>ID: {order._id}</small><br/>{order.address}</td>
-              <td>{order.items.map(i => i.name).join(", ")}</td>
-              <td className="total-price">${order.totalAmount}</td>
-              <td>
-                <span className={`status-badge status-${order.status}`}>
-                  {order.status || 'Pending'}
-                </span>
-              </td>
-              <td>
-                {/* Status Change Dropdown */}
-                <select 
-                  defaultValue={order.status} 
-                  onChange={(e) => handleStatusChange(order._id, e.target.value)}
-                  style={{padding: '5px', borderRadius: '4px'}}
-                >
-                  <option value="Pending">Pending</option>
-                  <option value="Shipped">Shipped</option>
-                  <option value="Delivered">Delivered</option>
-                  <option value="Cancelled">Cancelled</option>
-                </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="om-viewport">
+      <Toaster position="top-right" />
+      
+      <div className="om-header">
+        <div className="om-title-box">
+          <span className="material-symbols-outlined">package_2</span>
+          <div>
+            <h1>Order Management</h1>
+            <p>Track and update customer deliveries</p>
+          </div>
+        </div>
+        <div className="om-stats">
+          <div className="om-stat-item">
+            <span className="om-stat-label">Total Orders</span>
+            <span className="om-stat-value">{orders.length}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="om-card">
+        <div className="om-table-wrapper">
+          <table className="om-table">
+            <thead>
+              <tr>
+                <th>Order & Shipping</th>
+                <th>Purchased Items</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <th className="text-right">Manage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr><td colSpan="5" className="om-loader-cell"><div className="ap-loader"></div></td></tr>
+              ) : orders.length > 0 ? (
+                orders.map((order) => (
+                  <tr key={order._id}>
+                    <td className="om-order-info">
+                      <span className="om-id">#{order._id.slice(-8).toUpperCase()}</span>
+                      <p className="om-address">
+                        <span className="material-symbols-outlined">location_on</span>
+                        {order.address}
+                      </p>
+                    </td>
+                    <td className="om-items-cell">
+                      <div className="om-items-list">
+                        {order.items.map((i, idx) => (
+                          <span key={idx} className="om-item-tag">{i.name}</span>
+                        ))}
+                      </div>
+                    </td>
+                    <td className="om-price">₹{order.totalAmount}</td>
+                    <td>
+                      <span className={`om-badge om-badge-${order.status?.toLowerCase() || 'pending'}`}>
+                        {order.status || 'Pending'}
+                      </span>
+                    </td>
+                    <td className="text-right">
+                      <div className="om-action-wrapper">
+                        <select 
+                          className="om-status-select"
+                          value={order.status} 
+                          onChange={(e) => handleStatusChange(order._id, e.target.value)}
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Shipped">Shipped</option>
+                          <option value="Delivered">Delivered</option>
+                          <option value="Cancelled">Cancelled</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr><td colSpan="5" className="om-empty">No orders found.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

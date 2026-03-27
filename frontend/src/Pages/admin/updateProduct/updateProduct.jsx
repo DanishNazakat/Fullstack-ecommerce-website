@@ -1,88 +1,165 @@
-// src/components/SignupForm.jsx
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { updateProduct } from "../../../services/products/updateProduct";
-import { useNavigate , useParams } from "react-router-dom";
-import {getProductById} from "../../../services/products/getProductById"
-const  UpdateProduct = () => {
+import { useNavigate, useParams } from "react-router-dom";
+import { getProductById } from "../../../services/products/getProductById";
+import toast, { Toaster } from "react-hot-toast"; // 🔥 Added
+import "./UpdateProduct.css";
+
+const UpdateProduct = () => {
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
   const [price, setprice] = useState("");
   const [category, setcategory] = useState("");
   const [stock, setstock] = useState("");
-  const {id} = useParams();
-  const navigate = useNavigate();
-  // 🔥 product data fetch
-  useEffect(() => {
+  const [loading, setLoading] = useState(true); // 🔥 Added loading state
+  const [isUpdating, setIsUpdating] = useState(false); // 🔥 Added button loading state
 
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
     const fetchProduct = async () => {
       try {
-
         const res = await getProductById(id);
-
-        setname(res.product.name);
-        setdescription(res.product.description);
-        setprice(res.product.price);
-        setcategory(res.product.category);
-        setstock(res.product.stock);
-
+        const p = res.product;
+        setname(p.name);
+        setdescription(p.description);
+        setprice(p.price);
+        setcategory(p.category);
+        setstock(p.stock);
       } catch (error) {
-        console.error(error);
+        toast.error("Failed to fetch product data");
+        console.error("Fetch Error:", error);
+      } finally {
+        setLoading(false);
       }
     };
-
     fetchProduct();
-
   }, [id]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsUpdating(true);
+
     try {
-      const data = await updateProduct(id ,name, description, price, category, stock);
-      console.log("product response:", data);
-     
-        alert("add product successful!");
-        navigate('/AdminDashboard')
+      await updateProduct(id, name, description, price, category, stock);
+      toast.success("Product Updated Successfully!"); // 🔥 Hot Toast
       
+      // Thoda delay taake user toast dekh sake
+      setTimeout(() => {
+        navigate('/AdminDashboard');
+      }, 1500);
     } catch (err) {
-      console.error(err);
-      alert(" failed!");
+      toast.error("Update Failed! Please try again."); // 🔥 Hot Toast
+    } finally {
+      setIsUpdating(false);
     }
   };
 
+  // --- Loader Screen ---
+  if (loading) {
+    return (
+      <div className="update-page-wrapper">
+         <div className="ap-loader" style={{ borderTopColor: '#f25b19', width: '50px', height: '50px' }}></div>
+      </div>
+    );
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Update Product</h2>
-      <input
-        type="text"
-        placeholder=" Name"
-        value={name}
-        onChange={(e) => setname(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="description"
-        value={description}
-        onChange={(e) => setdescription(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="price"
-        value={price}
-        onChange={(e) => setprice(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="category"
-        value={category}
-        onChange={(e) => setcategory(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="stock"
-        value={stock}
-        onChange={(e) => setstock(e.target.value)}
-      />
-      <button type="submit">Add product</button>
-    </form>
+    <div className="update-page-wrapper">
+      {/* 🔥 Toaster Component */}
+      <Toaster position="top-center" reverseOrder={false} />
+
+      <div className="update-card">
+        {/* --- Back Navigation --- */}
+        <button className="back-nav-btn" onClick={() => navigate(-1)}>
+          <span className="material-symbols-outlined">arrow_back</span>
+          <span>Back to Dashboard</span>
+        </button>
+
+        <div className="form-header">
+          <div className="header-icon-box">
+            <span className="material-symbols-outlined">inventory_2</span>
+          </div>
+          <h2>Edit Product Details</h2>
+          <p>Update your inventory information instantly.</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="update-form">
+          <div className="input-group">
+            <label>Product Name</label>
+            <input
+              type="text"
+              placeholder="Enter product name"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Description</label>
+            <textarea
+              placeholder="Describe the features..."
+              value={description}
+              onChange={(e) => setdescription(e.target.value)}
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <div className="form-row">
+            <div className="input-group">
+              <label>Price (USD)</label>
+              <div className="price-input-wrapper">
+                <span className="unit-label">$</span>
+                <input
+                  type="number"
+                  value={price}
+                  onChange={(e) => setprice(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="input-group">
+              <label>Stock Count</label>
+              <input
+                type="number"
+                value={stock}
+                onChange={(e) => setstock(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label>Category</label>
+            <input
+              type="text"
+              value={category}
+              onChange={(e) => setcategory(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-actions">
+            <button type="button" className="secondary-btn" onClick={() => navigate(-1)} disabled={isUpdating}>
+              Discard Changes
+            </button>
+            <button type="submit" className="primary-btn" disabled={isUpdating}>
+              {isUpdating ? (
+                <div className="ap-loader"></div> 
+              ) : (
+                <>
+                  <span className="material-symbols-outlined">check_circle</span>
+                  Save Updates
+                </>
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

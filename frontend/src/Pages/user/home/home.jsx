@@ -73,15 +73,17 @@ function Home() {
             <span className="logo-name">ShopModern</span>
           </div>
 
-          <div className="search-container">
-            <span className="material-symbols-outlined search-icon">search</span>
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search products, brands..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+          <div className="search-wrapper">
+            <div className="search-container">
+              {/* <span className="material-symbols-outlined search-icon">search</span> */}
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Search products, brands..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
           </div>
 
           <div className="nav-actions">
@@ -146,8 +148,8 @@ function Home() {
             {filteredProducts.length > 0 ? (
               filteredProducts.map((item) => {
                 // Handling multiple image sources safely
-                const displayImg = item.images && item.images.length > 0 
-                  ? item.images[0].url 
+                const displayImg = item.images && item.images.length > 0
+                  ? item.images[0].url
                   : (item.image || "https://placehold.co/400x400?text=No+Image");
 
                 return (
@@ -159,7 +161,7 @@ function Home() {
                     <div className="card-info">
                       <span className="item-cat-label">{item.category}</span>
                       <h3 className="item-name">{item.name}</h3>
-                      
+
                       {/* Description logic added */}
                       <p className="item-description">
                         {item.description || "Experience premium quality with this top-rated item."}
@@ -167,8 +169,8 @@ function Home() {
 
                       <div className="card-footer-row">
                         <div className="price-wrapper">
-                           <span className="currency">$</span>
-                           <span className="item-price-val">{item.price}</span>
+                          <span className="currency">$</span>
+                          <span className="item-price-val">{item.price}</span>
                         </div>
                         <div className="action-btns">
                           <button className="add-btn" onClick={() => handleDirectCheckout(item)}>
@@ -192,7 +194,7 @@ function Home() {
       </div>
 
       {/* --- Footer (Cleaned & Corrected) --- */}
-       <footer class="main-footer">
+      <footer class="main-footer">
         <div class="container footer-grid">
           <div class="footer-brand">
             <div class="logo-section">

@@ -1,355 +1,295 @@
 <!DOCTYPE html>
 
-<html lang="en"><head>
+<html class="h-full bg-gray-50" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Dashboard - Customers</title>
+<!-- BEGIN: Scripts and Meta -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "primary": "#135bec",
-              "background-light": "#f6f6f8",
-              "background-dark": "#101622",
-            },
-            fontFamily: {
-              "display": ["Inter", "sans-serif"]
-            },
-            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-          },
-        },
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sidebar: '#111827',
+          }
+        }
       }
-    </script>
-<title>Modern E-Commerce Homepage</title>
+    }
+  </script>
+<!-- END: Scripts and Meta -->
+<style data-purpose="custom-layout-styles">
+    /* Custom scrollbar for better aesthetics in dark sidebar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #1f2937;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 10px;
+    }
+  </style>
 </head>
-<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
-<!-- Sticky Navbar -->
-<nav class="sticky top-0 z-50 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between h-16 gap-4">
-<!-- Logo -->
-<div class="flex-shrink-0 flex items-center gap-2">
-<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
-<span class="material-symbols-outlined">shopping_bag</span>
+<body class="h-full overflow-hidden">
+<div class="flex h-full">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-sidebar text-white flex-shrink-0 hidden md:flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+<span class="font-bold text-xl">D</span>
 </div>
-<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Lumina</span>
+<span class="text-xl font-semibold tracking-tight">DataStore</span>
 </div>
-<!-- Search Bar (Center) -->
-<div class="hidden md:flex flex-1 max-w-md">
-<div class="relative w-full">
-<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
-</div>
-<input class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Search products, brands..." type="text"/>
-</div>
-</div>
-<!-- Right Actions -->
-<div class="flex items-center gap-2 sm:gap-4">
-<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full relative">
-<span class="material-symbols-outlined">shopping_cart</span>
-<span class="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white leading-none">3</span>
-</button>
-<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full">
-<span class="material-symbols-outlined">person</span>
-</button>
-<button class="md:hidden p-2 text-slate-600 dark:text-slate-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-</div>
-</div>
-</div>
+<nav class="flex-1 px-4 space-y-2 mt-4 custom-scrollbar overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors" href="#">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Dashboard
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-600 text-white transition-colors" href="#">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Customers
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors text-gray-300" href="#">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Orders
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors text-gray-300" href="#">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Analytics
+        </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors text-gray-300" href="#">
+<svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+          Settings
+        </a>
 </nav>
-<main>
-<!-- Hero Section -->
-<section class="relative px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto">
-<div class="relative overflow-hidden rounded-3xl bg-slate-900 aspect-[21/9] flex items-center">
-<div class="absolute inset-0 z-0">
-<img alt="Summer Sale Banner" class="w-full h-full object-cover opacity-60" data-alt="Lifestyle fashion model wearing summer collection clothes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyMwLFpuAbxYBM3xMDcnjqygXsuAbqj62zx3VH8sZrjP5B9Na8UgLZ2ZCn_XRgyJm7xajTp3-6Yop5c8EuACa7yK1ztsgiasS4zgldgBr0rEdffvRWe_RnHMW4TGBj1g_Ofk1lUhtKHPoFYqwM-4RCUS7Pfh2Y05HPAvz5MUBrDrq1pPpvDYZV0mxnb9EiHsc2YoJQQjiGmYx-TfOPQMfJUbxk-t9HiNLtut5bqV6sPfGFjrnVot7OENOa2zYBxUsePxROnCQEZgw7"/>
-<div class="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/40 to-transparent"></div>
-</div>
-<div class="relative z-10 px-8 sm:px-16 max-w-2xl">
-<span class="inline-block px-3 py-1 rounded-full bg-primary text-white text-xs font-bold tracking-wider uppercase mb-4">Limited Offer</span>
-<h1 class="text-4xl sm:text-6xl font-extrabold text-white leading-tight mb-4">Summer Sale <br/>Promotion</h1>
-<p class="text-lg text-slate-200 mb-8 max-w-md">Enjoy huge discounts up to 50% off on our latest seasonal collections and luxury essentials.</p>
-<button class="bg-primary hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-primary/25">
-                        Shop Now
-                    </button>
+<div class="p-4 border-t border-gray-800">
+<div class="flex items-center gap-3 px-3 py-2">
+<img alt="Admin" class="w-8 h-8 rounded-full border border-gray-600" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpzvaT-r61TwiI28jf02kp-zDVfiUGpVd6I2VDTZsAQsEPDpx-bKx1_4FnP_YW0XLjYXgQre_A1Qpy1UJR5stVb29LIHOsSzer1PYQkZ4TccpsdofF9bCIi6aXO3e4kz6LEgkytHVnhdau3iAT9fuS9z_ewIeFvoOnvxtyf4TDIEuHIjeJ-Z3ZoF1F7W_ObSipFCOY95UHiR62CKQA6o4Es91k807R6aJ1tCGofk6OyZ9pKAhzeRF-e0E8oP8EhQdZ8DTMJhDQ0T_6"/>
+<div class="overflow-hidden">
+<p class="text-sm font-medium truncate">Alex Johnson</p>
+<p class="text-xs text-gray-400 truncate">Super Admin</p>
 </div>
 </div>
-</section>
-<!-- Categories Row -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-<div class="flex items-center justify-between mb-8">
-<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Shop by Category</h2>
-<a class="text-primary font-semibold text-sm hover:underline" href="#">View All</a>
 </div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-<div class="group cursor-pointer flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/50 transition-all">
-<div class="size-14 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl">devices</span>
-</div>
-<span class="font-bold text-slate-800 dark:text-slate-100">Electronics</span>
-</div>
-<div class="group cursor-pointer flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/50 transition-all">
-<div class="size-14 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl">apparel</span>
-</div>
-<span class="font-bold text-slate-800 dark:text-slate-100">Fashion</span>
-</div>
-<div class="group cursor-pointer flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/50 transition-all">
-<div class="size-14 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl">chair</span>
-</div>
-<span class="font-bold text-slate-800 dark:text-slate-100">Home</span>
-</div>
-<div class="group cursor-pointer flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/50 transition-all">
-<div class="size-14 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center text-primary mb-3 group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined text-3xl">face_5</span>
-</div>
-<span class="font-bold text-slate-800 dark:text-slate-100">Beauty</span>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<!-- BEGIN: Top Header -->
+<header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-10">
+<div class="flex items-center flex-1">
+<div class="relative w-full max-w-md">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</span>
+<input class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Search customers..." type="text"/>
 </div>
 </div>
-</section>
-<!-- Featured Products -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-<h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Featured Products</h2>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-<!-- Product Card 1 -->
-<div class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-xl transition-all">
-<div class="relative aspect-square overflow-hidden bg-slate-100">
-<img alt="Premium Watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Minimalist luxury wristwatch with white dial" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQjfEl32Bd5TlufNynTAPM57CNMJRGBJY3hR0EQwEMlaRPFrIV7NwuxqIzpd5-7X8UU4Um8f3Eux6GZG763t0pqwYkOuBv_TlzETyrXqKnKCIEom8YQmxuuCs6mfgNtClC0l4biQ97Npj48DXA8XJ9y2zF_47WLOfgiONXzroBi94o4fSs2agjLU5JzdBLnrEU05PjfnQZ5ND1mUnH9qqbA53qD2POnEYMW4Smc_5jzzFEGhqKQ50JjPlQv2YXt7ZGhut97LTZM5qc"/>
-<button class="absolute top-3 right-3 p-1.5 bg-white/80 backdrop-blur rounded-full text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-xl">favorite</span>
+<div class="flex items-center gap-4">
+<button class="p-2 text-gray-400 hover:text-gray-600 relative">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="absolute top-2 right-2 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
 </button>
+<button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            Add Customer
+          </button>
 </div>
-<div class="p-4">
-<p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Accessories</p>
-<h3 class="font-bold text-slate-900 dark:text-white truncate">Minimalist White Watch</h3>
-<div class="mt-2 flex items-center justify-between">
-<span class="text-lg font-bold text-primary">$129.00</span>
-<button class="flex items-center justify-center size-9 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
-<span class="material-symbols-outlined text-sm">add_shopping_cart</span>
-</button>
+</header>
+<!-- END: Top Header -->
+<!-- BEGIN: Scrollable Body -->
+<div class="flex-1 overflow-y-auto p-8" data-purpose="content-wrapper">
+<div class="max-w-7xl mx-auto">
+<!-- BEGIN: Page Title Section -->
+<div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div>
+<h1 class="text-2xl font-bold text-gray-900">Customers</h1>
+<p class="text-sm text-gray-500 mt-1">Manage your customer base and view their activity.</p>
 </div>
-</div>
-</div>
-<!-- Product Card 2 -->
-<div class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-xl transition-all">
-<div class="relative aspect-square overflow-hidden bg-slate-100">
-<img alt="Wireless Headphones" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern high-quality wireless studio headphones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACLBzuWuzYoshn4dU0W2nfgti12u6YRMbo9Yt8bEZfnyP8k_Y13U7RA7NNl_Spp0vGAhPPI4kzhwhzr6xIpZk-P8VFjLS_Y83ccU7UAzXcapwHHuyFHxxqmO3zbC3BdB1cuVPIrlqPJWETGStlig5EyhrlkBZWKZN3wtQ_AXTxxXfY-2CcaRqD75ybWr58pek5HHg2sVNTdqd6y3yWkvAzSwVXaA66dQDfAKyTB7iP4Q9Ipuua3O3ahHKwMREC7TtRMzI3mtNUOhNc"/>
-<button class="absolute top-3 right-3 p-1.5 bg-white/80 backdrop-blur rounded-full text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-xl">favorite</span>
-</button>
-</div>
-<div class="p-4">
-<p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Electronics</p>
-<h3 class="font-bold text-slate-900 dark:text-white truncate">Studio Wireless Headphones</h3>
-<div class="mt-2 flex items-center justify-between">
-<span class="text-lg font-bold text-primary">$299.00</span>
-<button class="flex items-center justify-center size-9 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
-<span class="material-symbols-outlined text-sm">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-xl transition-all">
-<div class="relative aspect-square overflow-hidden bg-slate-100">
-<img alt="Leather Sneakers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Classic leather sneakers in off-white color" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtljCoWx52JSLGD74cpo56v_ZbP01Vbqd4aNNYUym8wfYfLGqVt2Oiwpcd_PbfGw6BLkIvMN6F0p8aA1yqVFg8WLrUbW4D2YuuzrV86L9oaDjoRX_SXkti2reGLZl5F6KzvrFP0IVfYQaUe_G-uw_ZcRCqfGHY4YiJZmoAI5w-Gv6sQtLTQN3mtKFwanD5YlxERP8AD_vqNsG9Swq6fH78rwaukA1gZ9pvM3TYs6nN2AhiJnCec6Qqc7dyZsqPBQEF82pTithKJQL0"/>
-<button class="absolute top-3 right-3 p-1.5 bg-white/80 backdrop-blur rounded-full text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-xl">favorite</span>
-</button>
-</div>
-<div class="p-4">
-<p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Fashion</p>
-<h3 class="font-bold text-slate-900 dark:text-white truncate">Classic Leather Sneakers</h3>
-<div class="mt-2 flex items-center justify-between">
-<span class="text-lg font-bold text-primary">$85.00</span>
-<button class="flex items-center justify-center size-9 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
-<span class="material-symbols-outlined text-sm">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Product Card 4 -->
-<div class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-xl transition-all">
-<div class="relative aspect-square overflow-hidden bg-slate-100">
-<img alt="Sunglasses" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Black framed designer sunglasses on light background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTIyqwMxB2vo91sLAOQBcbdJic0vTt8zj7vPbI5b14xSFbJZBRn3a2DwsbUIMedTI7GMBr6JhJ4vuhzSNFBXvsOmLn6pyaoyxBmOnPrCsvIQftt282-xIqpoQKq7fFujE50wHRNjWfKfPRbd5uJmENSbfcpyxmnWClsbPUouzrKnYvDNRx1Bw5K9nXMX1Cz__29r7_mXfwU3DpkQGr61LcJz_KiAfu1eZjX9UOPkqT-BmpLQB1GgIwJ81DttCyNE7r5cwYjwgb14lx"/>
-<button class="absolute top-3 right-3 p-1.5 bg-white/80 backdrop-blur rounded-full text-slate-400 hover:text-red-500 transition-colors">
-<span class="material-symbols-outlined text-xl">favorite</span>
-</button>
-</div>
-<div class="p-4">
-<p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Fashion</p>
-<h3 class="font-bold text-slate-900 dark:text-white truncate">Designer Round Sunglasses</h3>
-<div class="mt-2 flex items-center justify-between">
-<span class="text-lg font-bold text-primary">$55.00</span>
-<button class="flex items-center justify-center size-9 bg-primary/10 text-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
-<span class="material-symbols-outlined text-sm">add_shopping_cart</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Best Sellers (Horizontal Scroll) -->
-<section class="bg-white dark:bg-slate-900 py-16">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex items-center justify-between mb-8">
-<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Best Sellers</h2>
 <div class="flex gap-2">
-<button class="p-2 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
-<span class="material-symbols-outlined text-sm">chevron_left</span>
-</button>
-<button class="p-2 border border-slate-200 dark:border-slate-700 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
-<span class="material-symbols-outlined text-sm">chevron_right</span>
-</button>
+<button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                Export CSV
+              </button>
+<button class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+                Filters
+              </button>
 </div>
 </div>
-<div class="flex overflow-x-auto gap-6 pb-4 snap-x no-scrollbar">
-<!-- Best Seller 1 -->
-<div class="flex-none w-64 snap-start">
-<div class="relative h-72 rounded-2xl overflow-hidden bg-slate-100 mb-3">
-<img alt="Running Shoe" class="w-full h-full object-cover" data-alt="Red athletic running shoe on plain background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIGe4wHIHpnhlTRIkGJKTN6gRuBVnl0P8f07NZGHrnTVBy57tuGlc2dxUzXFH1gyHya7-RZBkES0u1S4bJ2Y9EVP7N2kmrah138Q26cTNNmWl3QFHUwXNoNdmF3K5AbS-ZOWoF5GpaU8ito74JYzbT0_mXSWRoh7bxjZWtWYIZ847w_DDGfU4e23UaAl73Brbg-VascpYm7sC7QE6c0jCEgwCFRZ-_tyCoLo72kaXO5fAC0vUzBzgWnNwo81Z4x_cfQv2-f8VEdhLp"/>
+<!-- END: Page Title Section -->
+<!-- BEGIN: Customer Table Container -->
+<div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden" data-purpose="customers-list">
+<table class="min-w-full divide-y divide-gray-200">
+<thead class="bg-gray-50">
+<tr>
+<th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider" scope="col">
+                    Customer
+                  </th>
+<th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider" scope="col">
+                    Status
+                  </th>
+<th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider" scope="col">
+                    Total Orders
+                  </th>
+<th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider" scope="col">
+                    Join Date
+                  </th>
+<th class="relative px-6 py-3" scope="col">
+<span class="sr-only">Actions</span>
+</th>
+</tr>
+</thead>
+<tbody class="bg-white divide-y divide-gray-200">
+<!-- Row 1 -->
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Jane Cooper" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUss54jW6G-8trr5S8b2rkucHutZKvzNtZwREctuPUb5OOL_9ccsdtDA8oProdX47GFN8nHweeu76eHOlB2wcGowhxj_gQjlCB00uB9fnACC3R5IYYUTRneBoeX23SgBOUmXh-Dks9D75IsXk_R1h8nezAV7Ly21xGc5HZgzF-3h1awR9CgncegXUJvhIupIV3JWUIJNZfhn3TKiooQlUk9Oyzl5kJNeTyZQwizNRF-zaYElpS0T9CYlKb-MVvJR5GdMsBLeCBdePN"/>
 </div>
-<h4 class="font-semibold text-slate-900 dark:text-white">Speed Runner Pro</h4>
-<p class="text-primary font-bold">$110.00</p>
-</div>
-<!-- Best Seller 2 -->
-<div class="flex-none w-64 snap-start">
-<div class="relative h-72 rounded-2xl overflow-hidden bg-slate-100 mb-3">
-<img alt="Polaroid Camera" class="w-full h-full object-cover" data-alt="Retro polaroid camera on yellow background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsvZ1Zzq5oq4SV8YeoZRFZB1dIIhip_KuR_cZCcDZAL2aEI17ZAJjzSCNpbkencg6lstqccd5IC4Oq_XhJIDGDN-qZPQzxpK6xy9qOnvMSJw7wvXlJY-zFwilqkmzcGtTqNrIfSxQwC5sdwi3CDcXT2DR84iNwE5qfVOSnEz_aMEmJZjOl5VUeiQC5jouaWNh3tw1QWBCUD7_iTSVzZQSnKY6b6rmx52IpuDiiMwlEoMT5I7uGiOKgpNvFnmyRclm7cdID796sae3W"/>
-</div>
-<h4 class="font-semibold text-slate-900 dark:text-white">Instant Film Camera</h4>
-<p class="text-primary font-bold">$149.00</p>
-</div>
-<!-- Best Seller 3 -->
-<div class="flex-none w-64 snap-start">
-<div class="relative h-72 rounded-2xl overflow-hidden bg-slate-100 mb-3">
-<img alt="Studio Microphone" class="w-full h-full object-cover" data-alt="Professional studio condenser microphone" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbmbHHgw3bV42hm01a7ZMRGuDSHAkEFp6k2eFln8XQXo4ak2QG4xaWTT4YAI0PNyl35qNNdT4tfEkrFrir6VuIR3rYU-k_C83tN3PbX5Tof7fxIpgo5-XBe4RFDuaoGAKtjxaaEb-mjaesyp762sR2tfl_KxZaW_rPu7-C_V6jXUT2hl7jH3IXCDK-ycH8M2pw2HyQTSVp-PTR6YhYJ60NxROdQSYi31J5BnHFfBhtrk1_PJTl5XbBHzuJBSRQIyMPYGQP6vyy_sOP"/>
-</div>
-<h4 class="font-semibold text-slate-900 dark:text-white">Professional Condenser Mic</h4>
-<p class="text-primary font-bold">$210.00</p>
-</div>
-<!-- Best Seller 4 -->
-<div class="flex-none w-64 snap-start">
-<div class="relative h-72 rounded-2xl overflow-hidden bg-slate-100 mb-3">
-<img alt="Black Sneaker" class="w-full h-full object-cover" data-alt="Minimalist black and white lifestyle sneaker" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbp3ZPsbIHGbRkTyR8QwWpPeTwxq-m2fV9Mo6mwHdXiVfBLDVUFe5XPlkIyKmFXae9rDxT8qj5E24DcbroQkz_VlaMEeNYFTKb00jdi0zzcei4m1LYhGmjX-zmOP9OsjmiXawCDUF4r79MFGED7EA8m8-VST3GZn8Am0WC5uDwCic-gXLSo_ZMUYISbZBVWeL3uUU-DKOt4En0GGWEn07njr6_A0bH3IhKTjVjqWXRxWxoDtBuJO8RKw6XX2Yes3QR4Oh1VUz4y0Hu"/>
-</div>
-<h4 class="font-semibold text-slate-900 dark:text-white">Street Ease Sneakers</h4>
-<p class="text-primary font-bold">$95.00</p>
-</div>
-<!-- Best Seller 5 -->
-<div class="flex-none w-64 snap-start">
-<div class="relative h-72 rounded-2xl overflow-hidden bg-slate-100 mb-3">
-<img alt="Tablet" class="w-full h-full object-cover" data-alt="Modern tablet with stylus pen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApX_U2liosMGQJG_RUAM7FwhMXLmrdP6bKpLaFyq98lHiuvWmTutUZei6CVjQn43qhj0y9rvxe5wVOU_uoCzkN1s23oyIr-hDg3MKR38lhtBux_PDKYFHstgJ7pGELnYT_rKjYTCiTYFoFVaG2OF3EuRbiM6u7Ovn4jDg5fSssACy6rlOpullyxFVqc1kPyH-PBdDk2M7wUO6fOUPs7HMdrRI8bBTn0AInqQ8rh6AjsUBpehcPnYxNomBgdvhm5i0EPHVdcN0jO7v7"/>
-</div>
-<h4 class="font-semibold text-slate-900 dark:text-white">Ultra Tab Gen 2</h4>
-<p class="text-primary font-bold">$499.00</p>
+<div class="ml-4">
+<div class="text-sm font-medium text-gray-900">Jane Cooper</div>
+<div class="text-sm text-gray-500">jane.cooper@example.com</div>
 </div>
 </div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    42 Orders
+                  </td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Jan 12, 2023
+                  </td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-blue-600 hover:text-blue-900" href="#">Edit</a>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Cody Fisher" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR6Sy_dfdLzTZ8612VIJf6CYDWoVJeScEMwDrXuh_UC1EeETRAyHULrziLbfdx-pLEL6vbN8vaH7Y-33lpJYcBs4TUaV5arafeC34jHdBjqH0egSZNd6NZPETF6hdwyLQS0iQhEgO6ZgLG2GonSEx57MHabBs6v98MiWH1NdpPhE8UNTPBdinoARw8w6SKbp2kwjXd4RphGxGssPQR0lcdnwsouAwBMCrY7LIGS0DQJc14JiQob60fkd3uxyt9qRJO7sXhA189ERhX"/>
 </div>
-</section>
-<!-- Newsletter Section -->
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-<div class="bg-primary rounded-3xl p-8 sm:p-16 flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden relative">
-<div class="absolute -right-16 -bottom-16 size-64 bg-white/10 rounded-full blur-3xl"></div>
-<div class="absolute -left-16 -top-16 size-64 bg-white/10 rounded-full blur-3xl"></div>
-<div class="relative z-10 max-w-lg text-center md:text-left">
-<h2 class="text-3xl font-extrabold text-white mb-4">Join our community</h2>
-<p class="text-blue-100 text-lg">Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
-</div>
-<div class="relative z-10 w-full max-w-md">
-<form class="flex flex-col sm:flex-row gap-2">
-<input class="flex-1 px-6 py-4 rounded-xl border-none focus:ring-2 focus:ring-blue-300 text-slate-900" placeholder="Your email address" type="email"/>
-<button class="bg-slate-900 text-white font-bold py-4 px-8 rounded-xl hover:bg-slate-800 transition-colors" type="submit">
-                            Subscribe
-                        </button>
-</form>
-<p class="text-blue-200 text-xs mt-3 text-center sm:text-left">By subscribing, you agree to our Privacy Policy.</p>
+<div class="ml-4">
+<div class="text-sm font-medium text-gray-900">Cody Fisher</div>
+<div class="text-sm text-gray-500">cody.fisher@example.com</div>
 </div>
 </div>
-</section>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    12 Orders
+                  </td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Feb 21, 2023
+                  </td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-blue-600 hover:text-blue-900" href="#">Edit</a>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Esther Howard" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF8UL01QMlz7wQIBWJqyu7kMLj7o9CDDH7oW5Xx0lvobrT2PYLAJDXEResq8Qb5PCMML23XbI_h8nABPLsxnTkCUlvfEhrRUbYB5I4xyqR-Od3gz8xazHqDi70p1XPHSMDCTZoXR1fxEBDGBWlUuBGBDyvtyBmNR1qRVhJx3ynvgKR47zufxBVRQPKfrt9KlFC5gPTO2BRv6w9iyfI2gj2oY3es8zabigmUIkCPQ3WMKF8iS5P37oM10k0O90qMrmcU9Wa6WJA9Uwi"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-gray-900">Esther Howard</div>
+<div class="text-sm text-gray-500">esther.howard@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                      Inactive
+                    </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    0 Orders
+                  </td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Mar 04, 2023
+                  </td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-blue-600 hover:text-blue-900" href="#">Edit</a>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Jenny Wilson" class="h-10 w-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsC5WMIb_kJpXeGWnG16Kpxtu20Ke7F8ju7htcBU1_gXBAP0zqvUGJxF--KJTOV-63ssfQXGApWcrRR-wk9hmYeRhgSB6wsEos50FgUMD2_PhvOajuuYPYGC8SUV7t1dlqdUb3VyliUkEZPMALFPZSkJOnq7cZq-CouK3qoPXg5f5QqYLiSNwBY0iA9XOfUM_lE8yA4kt8MdbGmo2NgD389jAm9EYy8cJvPcNTXzRclXesjy2krX_LRI-5CzgZPmlOwc5_BDHV_FU_"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-gray-900">Jenny Wilson</div>
+<div class="text-sm text-gray-500">jenny.wilson@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Active
+                    </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    28 Orders
+                  </td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    Mar 15, 2023
+                  </td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-blue-600 hover:text-blue-900" href="#">Edit</a>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- BEGIN: Table Pagination -->
+<div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+<div class="flex-1 flex justify-between sm:hidden">
+<a class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" href="#"> Previous </a>
+<a class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" href="#"> Next </a>
+</div>
+<div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+<div>
+<p class="text-sm text-gray-700">
+                    Showing <span class="font-medium">1</span> to <span class="font-medium">4</span> of <span class="font-medium">20</span> results
+                  </p>
+</div>
+<div>
+<nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+<a class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" href="#">
+<span class="sr-only">Previous</span>
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+<a aria-current="page" class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#"> 1 </a>
+<a class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium" href="#"> 2 </a>
+<a class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium" href="#"> 3 </a>
+<a class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" href="#">
+<span class="sr-only">Next</span>
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</nav>
+</div>
+</div>
+</div>
+<!-- END: Table Pagination -->
+</div>
+<!-- END: Customer Table Container -->
+</div>
+</div>
+<!-- END: Scrollable Body -->
 </main>
-<!-- Footer -->
-<footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 pt-16 pb-8">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
-<!-- Brand Info -->
-<div class="col-span-2 lg:col-span-2">
-<div class="flex items-center gap-2 mb-6">
-<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
-<span class="material-symbols-outlined">shopping_bag</span>
+<!-- END: Main Content Area -->
 </div>
-<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Lumina</span>
-</div>
-<p class="text-slate-500 dark:text-slate-400 max-w-xs mb-6">
-                        The ultimate destination for premium lifestyle products, curated for your modern needs.
-                    </p>
-<div class="flex gap-4">
-<a class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined text-xl">share</span>
-</a>
-<a class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined text-xl">public</span>
-</a>
-<a class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors" href="#">
-<span class="material-symbols-outlined text-xl">chat</span>
-</a>
-</div>
-</div>
-<!-- Column 1 -->
-<div>
-<h4 class="font-bold text-slate-900 dark:text-white mb-4">Shop</h4>
-<ul class="space-y-2">
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">New Arrivals</a></li>
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Best Sellers</a></li>
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Discounted</a></li>
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Store Finder</a></li>
-</ul>
-</div>
-<!-- Column 2 -->
-<div>
-<h4 class="font-bold text-slate-900 dark:text-white mb-4">About</h4>
-<ul class="space-y-2">
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Our Story</a></li>
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Sustainability</a></li>
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Press</a></li>
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Careers</a></li>
-</ul>
-</div>
-<!-- Column 3 -->
-<div>
-<h4 class="font-bold text-slate-900 dark:text-white mb-4">Help</h4>
-<ul class="space-y-2">
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Shipping Info</a></li>
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Returns</a></li>
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">Contact Us</a></li>
-<li><a class="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm" href="#">FAQ</a></li>
-</ul>
-</div>
-</div>
-<div class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-<p class="text-sm text-slate-500 dark:text-slate-400">© 2024 Lumina E-Commerce. All rights reserved.</p>
-<div class="flex gap-6">
-<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">Privacy Policy</a>
-<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" href="#">Terms of Service</a>
-</div>
-</div>
-</div>
-</footer>
-<style>
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
 </body></html>

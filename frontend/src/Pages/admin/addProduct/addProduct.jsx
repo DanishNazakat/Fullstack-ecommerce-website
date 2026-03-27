@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { addProduct } from '../../../services/products/addProduct';
 import { useNavigate } from 'react-router-dom';
-import './AddProduct.css'; // Alag CSS file use karein
+import toast, { Toaster } from 'react-hot-toast'; // 🔥 Hot Toast Import
+import './AddProduct.css';
 
 function AddProduct() {
   const [name, setName] = useState("");
@@ -36,11 +37,13 @@ function AddProduct() {
     try {
       const response = await addProduct(formData);
       if (response.success) {
-        alert("Product added successfully!");
-        navigate("/AdminDashboard");
+        toast.success("Product added successfully!"); // 🔥 Success Toast
+        setTimeout(() => {
+          navigate("/AdminDashboard");
+        }, 1500);
       }
     } catch (err) {
-      alert("Error adding product: " + err.message);
+      toast.error(err.message || "Error adding product"); // 🔥 Error Toast
     } finally {
       setLoading(false);
     }
@@ -48,16 +51,18 @@ function AddProduct() {
 
   return (
     <div className="ap-wrapper">
+      {/* 🔥 Toaster Component */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <div className="ap-container">
         <div className="ap-header">
-          <button className="ap-back-btn" onClick={() => navigate(-1)}>
+          <button className="ap-back-btn" onClick={() => navigate(-1)} title="Go Back">
             <span className="material-symbols-outlined">arrow_back</span>
           </button>
           <h2>Add New Product</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="ap-form">
-          {/* Product Name */}
           <div className="ap-group">
             <label>Product Name</label>
             <input 
@@ -69,7 +74,6 @@ function AddProduct() {
             />
           </div>
 
-          {/* Category & Price Row */}
           <div className="ap-row">
             <div className="ap-group">
               <label>Category</label>
@@ -93,7 +97,6 @@ function AddProduct() {
             </div>
           </div>
 
-          {/* Stock & Image Row */}
           <div className="ap-row">
             <div className="ap-group">
               <label>Stock Quantity</label>
@@ -107,16 +110,22 @@ function AddProduct() {
             </div>
             <div className="ap-group">
               <label>Product Image</label>
-              <input 
-                type="file" 
-                accept="image/*" 
-                onChange={handleFileChange} 
-                required 
-              />
+              <div className="file-input-wrapper">
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={handleFileChange} 
+                  required 
+                  id="file-upload"
+                />
+                <label htmlFor="file-upload" className="custom-file-upload">
+                  <span className="material-symbols-outlined">cloud_upload</span>
+                  {file ? file.name : "Choose Image"}
+                </label>
+              </div>
             </div>
           </div>
 
-          {/* Description */}
           <div className="ap-group">
             <label>Product Description</label>
             <textarea 
@@ -132,7 +141,10 @@ function AddProduct() {
             {loading ? (
               <span className="ap-loader"></span>
             ) : (
-              "Upload Product"
+              <>
+                <span className="material-symbols-outlined">add_circle</span>
+                Upload Product
+              </>
             )}
           </button>
         </form>
