@@ -79,7 +79,7 @@ function AdminDashboard() {
             <span className="material-symbols-outlined">local_shipping</span>
             <span>Orders</span>
           </Link>
-          <Link to="/admin/users" className="nav-item">
+          <Link to="/UserManagement" className="nav-item">
             <span className="material-symbols-outlined">group_work</span>
             <span>Customers</span>
           </Link>

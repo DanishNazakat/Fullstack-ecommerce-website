@@ -1,0 +1,135 @@
+/* Table Specifics */
+.user-profile-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-circle {
+  width: 42px;
+  height: 42px;
+  background: #f25b19;
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(242, 91, 25, 0.2);
+}
+
+.u-name { font-weight: 700; color: #1e293b; margin: 0; }
+.u-id { font-size: 11px; color: #94a3b8; font-family: monospace; }
+.u-email { color: #64748b; font-size: 14px; }
+
+/* Role Pills */
+.role-pill {
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.role-pill.admin { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+.role-pill.user { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+
+/* Modal Glassmorphism */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content-glass {
+  background: white;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.modal-header h3 { margin: 0; font-size: 20px; color: #0f172a; }
+
+.close-x {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form-input-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.form-input-group input, .form-input-group select {
+  padding: 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.form-input-group input:focus { border-color: #f25b19; box-shadow: 0 0 0 4px rgba(242, 91, 25, 0.1); }
+
+.modal-footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 12px;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-save {
+  flex: 2;
+  padding: 12px;
+  background: #f25b19;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(242, 91, 25, 0.3);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
