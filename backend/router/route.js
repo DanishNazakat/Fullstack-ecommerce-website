@@ -17,7 +17,7 @@ router.get("/allUser", authMiddleware, authorizeRoles("admin"), getAllUsers);
 router.put("/updateUser/:id", authMiddleware, authorizeRoles("admin"),updateUser);
 router.delete("/deleteUser/:id", authMiddleware, authorizeRoles("admin"),deleteUser);
 // router.post('/addProduct', authMiddleware,authorizeRoles("admin") ,addProduct)
-router.get('/getProduct',authMiddleware,authorizeRoles("admin","manager","user"), getProduct)
+router.get('/getProduct', getProduct)
 router.delete("/delete/:id",authMiddleware,authorizeRoles("admin","manager"), deleteProduct);
 router.put("/updateProduct/:id",authMiddleware,authorizeRoles("admin","manger"), updateProduct);
 router.get("/getProductById/:id",authMiddleware,authorizeRoles("admin","manger"), getProductById);
